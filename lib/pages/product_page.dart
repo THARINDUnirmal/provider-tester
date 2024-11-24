@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider_tester/data/product_data.dart';
 import 'package:provider_tester/models/product_model.dart';
+import 'package:provider_tester/pages/cart_page.dart';
+import 'package:provider_tester/pages/favourit_page.dart';
 
 class ProductPage extends StatelessWidget {
   ProductPage({super.key});
@@ -79,7 +81,14 @@ class ProductPage extends StatelessWidget {
         children: [
           FloatingActionButton(
             backgroundColor: Colors.deepOrange,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FavouritPage(),
+                ),
+              );
+            },
             child: const Center(
               child: Icon(
                 Icons.favorite,
@@ -92,7 +101,14 @@ class ProductPage extends StatelessWidget {
           ),
           FloatingActionButton(
             backgroundColor: Colors.deepOrange,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartPage(),
+                ),
+              );
+            },
             child: const Center(
               child: Icon(
                 Icons.shopping_cart,
