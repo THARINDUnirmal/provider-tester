@@ -16,6 +16,7 @@ class FavouriteProvider extends ChangeNotifier {
     // }
     if (_allFavourite.containsKey(id)) {
       _allFavourite[id] = !_allFavourite[id]!;
+      _allFavourite.remove(id);
     } else {
       _allFavourite[id] = true;
     }
