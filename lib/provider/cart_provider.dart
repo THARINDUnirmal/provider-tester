@@ -3,7 +3,7 @@ import 'package:provider_tester/models/cart_model.dart';
 
 class CartProvider extends ChangeNotifier {
   //create map
-  Map<String, CartModel> _allItems = {};
+  final Map<String, CartModel> _allItems = {};
 
   //create getter
   Map<String, CartModel> get items {
@@ -33,5 +33,6 @@ class CartProvider extends ChangeNotifier {
         ),
       );
     }
+    notifyListeners();
   }
 }
