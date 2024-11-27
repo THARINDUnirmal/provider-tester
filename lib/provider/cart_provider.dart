@@ -35,4 +35,14 @@ class CartProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  //remove methord
+  void removeFromCart(String id) {
+    if (_allItems.containsKey(id)) {
+      _allItems.remove(id);
+    } else {
+      return;
+    }
+    notifyListeners();
+  }
 }

@@ -5,6 +5,7 @@ import 'package:provider_tester/models/product_model.dart';
 import 'package:provider_tester/pages/cart_page.dart';
 import 'package:provider_tester/pages/favourit_page.dart';
 import 'package:provider_tester/provider/cart_provider.dart';
+import 'package:provider_tester/provider/favourite_provider.dart';
 
 class ProductPage extends StatelessWidget {
   ProductPage({super.key});
@@ -30,8 +31,9 @@ class ProductPage extends StatelessWidget {
         itemBuilder: (context, index) {
           final ProductModel indexProdut = allProduct[index];
           return Card(
-            child: Consumer(
-              builder: (context, CartProvider provider, child) {
+            child: Consumer2(
+              builder: (context, CartProvider provider,
+                  FavouriteProvider favProvider, child) {
                 return ListTile(
                   title: Row(
                     children: [
@@ -68,8 +70,18 @@ class ProductPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.favorite_border),
+                        onPressed: () {
+                          favProvider.addToFavourite(indexProdut.id);
+                        },
+                        icon: favProvider.isFavourite(indexProdut.id)
+                            ? Icon(
+                                Icons.favorite,
+                                color: Colors.pink,
+                              )
+                            : Icon(
+                                Icons.favorite_border,
+                                color: Colors.grey,
+                              ),
                       ),
                       IconButton(
                         onPressed: () {
