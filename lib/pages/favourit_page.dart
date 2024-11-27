@@ -15,24 +15,32 @@ class FavouritPage extends StatelessWidget {
       ),
       body: Consumer(
         builder: (context, FavouriteProvider favProvider, child) {
-          return ListView.builder(
-            itemCount: favProvider.favourit.length,
-            itemBuilder: (context, index) {
-              final productId = favProvider.favourit.keys.toList()[index];
-              final ProductModel pr = ProductData().productList.firstWhere(
-                    (element) => element.id == productId,
-                  );
-              return ListTile(
-                title: Text(pr.title),
-                trailing: IconButton(
-                  onPressed: () {
-                    favProvider.removeFromFavourite(pr.id);
+          return favProvider.favourit.isEmpty
+              ? Center(
+                  child: Text(
+                  "Add some product to favourite !",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20),
+                ))
+              : ListView.builder(
+                  itemCount: favProvider.favourit.length,
+                  itemBuilder: (context, index) {
+                    final productId = favProvider.favourit.keys.toList()[index];
+                    final ProductModel pr =
+                        ProductData().productList.firstWhere(
+                              (element) => element.id == productId,
+                            );
+                    return ListTile(
+                      title: Text(pr.title),
+                      trailing: IconButton(
+                        onPressed: () {
+                          favProvider.removeFromFavourite(pr.id);
+                        },
+                        icon: Icon(Icons.delete),
+                      ),
+                    );
                   },
-                  icon: Icon(Icons.delete),
-                ),
-              );
-            },
-          );
+                );
         },
       ),
     );
