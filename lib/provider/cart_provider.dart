@@ -3,7 +3,7 @@ import 'package:provider_tester/models/cart_model.dart';
 
 class CartProvider extends ChangeNotifier {
   //create map
-  final Map<String, CartModel> _allItems = {};
+  Map<String, CartModel> _allItems = {};
 
   //create getter
   Map<String, CartModel> get items {
@@ -44,5 +44,40 @@ class CartProvider extends ChangeNotifier {
       return;
     }
     notifyListeners();
+  }
+
+  //minus methord
+  void minusProduct(String id) {
+    if (_allItems[id]!.quantity <= 1) {
+      _allItems.remove(id);
+    } else {
+      _allItems.update(
+        id,
+        (value) => CartModel(
+            id: value.id,
+            titile: value.titile,
+            price: value.price,
+            quantity: value.quantity - 1),
+      );
+    }
+    notifyListeners();
+  }
+
+  //clear all
+  void clearAll() {
+    _allItems = {};
+    notifyListeners();
+  }
+
+  //calculation all products
+  double get totalAmount {
+    double total = 5.0;
+    _allItems.forEach(
+      (key, cartItem) {
+        total += cartItem.price * cartItem.quantity;
+      },
+    );
+
+    return total;
   }
 }

@@ -22,50 +22,80 @@ class CartPage extends StatelessWidget {
                     style: TextStyle(fontSize: 20),
                   ),
                 )
-              : ListView.builder(
-                  itemCount: value.items.length,
-                  itemBuilder: (context, index) {
-                    final CartModel indexCartModel =
-                        value.items.values.toList()[index];
-                    return ListTile(
-                      title: Text(
-                        indexCartModel.titile,
+              : Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: value.items.length,
+                        itemBuilder: (context, index) {
+                          final CartModel indexCartModel =
+                              value.items.values.toList()[index];
+                          return ListTile(
+                            title: Text(
+                              indexCartModel.titile,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "\$${indexCartModel.price}",
+                                ),
+                                Text(
+                                  "\$${indexCartModel.price} x ${indexCartModel.quantity}",
+                                ),
+                              ],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    value.minusProduct(indexCartModel.id);
+                                  },
+                                  icon: Icon(Icons.remove),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    value.removeFromCart(indexCartModel.id);
+                                  },
+                                  icon: Icon(Icons.remove_shopping_cart),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        "Total : \$${value.totalAmount.toStringAsFixed(2)}",
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 25,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "\$${indexCartModel.price}",
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Clear All Items",
+                          style: TextStyle(
+                            fontSize: 18,
                           ),
-                          Text(
-                            "\$${indexCartModel.price} x ${indexCartModel.quantity}",
-                          ),
-                        ],
+                        ),
                       ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.remove),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              value.removeFromCart(indexCartModel.id);
-                            },
-                            icon: Icon(Icons.remove_shopping_cart),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                    )
+                  ],
                 );
         },
       ),
